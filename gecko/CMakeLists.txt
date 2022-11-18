@@ -35,7 +35,8 @@ zephyr_include_directories(
   platform/radio/rail_lib/chip/efr32/efr32xg2x
   platform/radio/rail_lib/common
   platform/radio/rail_lib/plugin/pa-conversions
-  platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/config
+  platform/radio/rail_lib/plugin/pa-conversions/efr32xg24/config
+  # platform/radio/rail_lib/plugin/pa-conversions/efr32xg22/config
   protocol/bluetooth//bgstack/ll/inc
   service/device_init/config/s2
   service/device_init/config/s2/${PRODUCT_NO}
@@ -136,6 +137,7 @@ endfunction()
 if(CONFIG_BT_SILABS_HCI)
   # rail
   zephyr_sources(platform/radio/rail_lib/plugin/pa-conversions/pa_conversions_efr32.c)
+  zephyr_sources(platform/radio/rail_lib/plugin/pa-conversions/pa_curves_efr32.c)
 
   # sl_protocol_crypto
   zephyr_sources(util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto_crypto.c)
@@ -143,9 +145,12 @@ if(CONFIG_BT_SILABS_HCI)
   zephyr_sources(util/third_party/crypto/sl_component/sl_protocol_crypto/src/sli_protocol_crypto_radioaes.c)
 
   # prebuilt libs
-  add_prebuilt_library(liblinklayer gecko/protocol/bluetooth/bgstack/ll/lib/libbluetooth_controller_${CONFIG_SOC_SERIES}_gcc_release.a)
-  add_prebuilt_library(libbgcommon  gecko/protocol/bluetooth/bgcommon/lib/libbgcommon_${CONFIG_SOC_SERIES}_gcc_release.a)
-  add_prebuilt_library(librail      gecko/platform/radio/rail_lib//autogen/librail_release/librail_${CONFIG_SOC_SERIES}_gcc_release.a)
+  # add_prebuilt_library(liblinklayer gecko/protocol/bluetooth/bgstack/ll/lib/libbluetooth_controller_efr32xg22_gcc_release.a)
+  # add_prebuilt_library(libbgcommon  gecko/protocol/bluetooth/bgcommon/lib/libbgcommon_efr32xg22_gcc_release.a)
+  # add_prebuilt_library(librail      gecko/platform/radio/rail_lib//autogen/librail_release/librail_efr32xg22_gcc_release.a)
+  add_prebuilt_library(liblinklayer gecko/protocol/bluetooth/bgstack/ll/lib/libbluetooth_controller_efr32xg24_gcc_release.a)
+  add_prebuilt_library(libbgcommon  gecko/protocol/bluetooth/bgcommon/lib/libbgcommon_efr32xg24_gcc_release.a)
+  add_prebuilt_library(librail      gecko/platform/radio/rail_lib//autogen/librail_release/librail_efr32xg24_gcc_release.a)
 
   # link mbedTLS
   if(CONFIG_MBEDTLS)
