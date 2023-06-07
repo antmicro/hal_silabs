@@ -1,2 +1,6 @@
 add_subdirectory_ifdef(CONFIG_HAS_SILABS_GECKO gecko)
 add_subdirectory_ifdef(CONFIG_HAS_SILABS_GECKO zephyr)
+
+add_subdirectory_ifdef(CONFIG_HAS_SILABS_WISECONNECT wiseconnect)
+add_subdirectory_ifdef(CONFIG_HAS_SILABS_WISECONNECT zephyr)
+
