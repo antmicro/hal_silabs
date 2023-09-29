@@ -35,3 +35,44 @@ zephyr_compile_definitions(
   # this is needed to prevent error_t duplication
   __error_t_defined
 )
+
+zephyr_include_directories_ifdef(CONFIG_WIFI_SIWG917
+  components/service/network_manager/inc/
+  components/protocol/wifi/inc
+  components/si91x/sl_net/inc
+  components/si91x/inc/
+  components/si91x_support/brd4338a
+  components/siwx917_soc/wifi_inc
+  ../gecko/common/inc
+  ${ZEPHYR_BASE}/include/zephyr/portability
+)
+
+zephyr_sources_ifdef(CONFIG_WIFI_SIWG917
+  components/siwx917_soc/sl_platform.c
+  components/siwx917_soc/sl_platform_wireless.c
+  components/siwx917_soc/sl_si91x_bus.c
+  components/siwx917_soc/sli_siwx917_soc.c
+  components/siwx917_soc/rsi_hal_mcu_m4_rom.c
+  components/siwx917_soc/rsi_hal_mcu_m4_ram.c
+  components/si91x_support/src/sl_utility.c
+  components/si91x/src/sl_rsi_utility.c
+  components/si91x/src/sl_si91x_driver.c
+  components/si91x/src/sl_si91x_callback_framework.c
+  components/si91x/memory/malloc_buffers.c
+  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  components/si91x/threading/sli_si91x_multithreaded.c
+  components/si91x/sl_net/protocols/icmp/sl_net_ping.c
+  components/si91x/sl_net/src/sl_net_si91x_integration_handler.c
+  components/si91x/sl_net/src/sl_net_rsi_utility.c
+  components/si91x/sl_net/src/sl_net_si91x.c
+  components/si91x/sl_net/src/sl_si91x_net_internal_stack.c
+  components/service/network_manager/src/sl_net.c
+  components/service/network_manager/src/sl_net_basic_credentials.c
+  components/service/network_manager/src/sl_net_basic_profiles.c
+  components/protocol/wifi/src/sl_wifi_callback_framework.c
+  components/protocol/wifi/si91x/sl_wifi.c
+)
+
+zephyr_compile_definitions_ifdef(CONFIG_WIFI_SIWG917
+  SL_WIFI_COMPONENT_INCLUDED
+)
