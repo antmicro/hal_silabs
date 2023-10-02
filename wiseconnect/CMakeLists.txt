@@ -12,11 +12,6 @@ zephyr_include_directories(
     components/siwx917_soc/drivers/systemlevel/inc
     components/siwx917_soc/inc
     components/si91x/inc/
-#     components/siwx917_soc/wifi_inc/
-#     components/protocol/wifi/inc/
-#     components/service/network_manager/inc/
-#     ../gecko/common/inc/
-#     ${ZEPHYR_BASE}/include/zephyr/portability
 
     # TODO: don't hardcode board!!
     components/si91x_support/brd4338a
@@ -31,7 +26,7 @@ zephyr_include_directories_ifdef(CONFIG_WIFI_SIWG917
     components/service/network_manager/inc
     components/si91x/sl_net/inc
     components/si91x/socket_utility/inc
-    ../gecko/platform/common/inc
+=    ../gecko/platform/common/inc
     ../gecko/common/inc
     ${ZEPHYR_BASE}/include/zephyr/portability
 )
@@ -79,7 +74,6 @@ zephyr_sources_ifdef(CONFIG_WIFI_SIWG917
     components/service/network_manager/src/sl_net_basic_credentials.c
     components/si91x/socket/sl_si91x_socket.c
     components/si91x/socket_utility/src/sl_si91x_socket_utility.c
-
     )
 
 zephyr_compile_definitions(
@@ -107,6 +101,7 @@ zephyr_compile_definitions(
 
 zephyr_compile_definitions_ifdef(CONFIG_WIFI_SIWG917
     SI91X_NETWORK_OFFLOAD_ENABLED
-SL_NET_COMPONENT_INCLUDED
-SL_WIFI_COMPONENT_INCLUDED
+    SI91X_SOCKET_FEATURE
+    SL_NET_COMPONENT_INCLUDED
+    SL_WIFI_COMPONENT_INCLUDED
 )

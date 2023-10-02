@@ -74,7 +74,7 @@
 #define PRINT_DEBUG_LOG 0
 
 
-#define PRINT_STATUS(tag, status)         printf("\r\n%s %s:%d: 0x%lx \r\n",tag, __FILE__, __LINE__, status);
+#define PRINT_STATUS(tag, status)         printf("\r\n%s %s:%d: 0x%x \r\n",tag, __FILE__, __LINE__, status);
 #define VERIFY_STATUS_AND_RETURN(status)            do { if (status != SL_STATUS_OK) { if (PRINT_ERROR_LOGS) { PRINT_STATUS(ERROR_TAG, status) } return status;} } while(0);
 #define VERIFY_STATUS_AND_GOTO(status, goto_label)  do { if (status != SL_STATUS_OK) { if (PRINT_ERROR_LOGS) { PRINT_STATUS(ERROR_TAG, status) } goto goto_label;} } while(0)
 #define PRINT_ERROR_STATUS(tag, status)         printf("\r\n%s %s:%d: 0x%x \r\n",tag, __FILE__, __LINE__, (unsigned int)status);

@@ -18,6 +18,21 @@
 #define UDP_HEADER_LENGTH     44
 #define SI91X_SSL_HEADER_SIZE 90
 
+int sl_si91x_send_async(int socket,
+                        const uint8_t *buffer,
+                        size_t buffer_length,
+                        int32_t flags,
+                        data_transfer_complete_handler callback);
+
+
+int sl_si91x_sendto_async(int socket,
+                          uint8_t *buffer,
+                          size_t buffer_length,
+                          int32_t flags,
+                          const struct sockaddr *to_addr,
+                          socklen_t to_addr_len,
+                          data_transfer_complete_handler callback);
+
 static int sli_si91x_accept_async(int socket,
                                   const struct sockaddr *addr,
                                   socklen_t addr_len,
@@ -632,4 +647,38 @@ int sl_si91x_select(int nfds,
 
   SOCKET_VERIFY_STATUS_AND_RETURN(status, SL_STATUS_OK, SI91X_UNDEFINED_ERROR);
   return SI91X_NO_ERROR;
+}
+
+
+int sl_si91x_socket_set_recv_callback(int socket,  void* callback)
+{
+	si91x_socket_t *si91x_socket = get_si91x_socket(socket);
+
+	SET_ERRNO_AND_RETURN_IF_TRUE(si91x_socket == NULL, EBADF);
+
+	si91x_socket->recv_data_callback = callback;
+
+	return SI91X_NO_ERROR;
+}
+
+int sl_si91x_socket_set_trans_callback(int socket,  void* callback)
+{
+	si91x_socket_t *si91x_socket = get_si91x_socket(socket);
+
+	SET_ERRNO_AND_RETURN_IF_TRUE(si91x_socket == NULL, EBADF);
+
+	si91x_socket->data_transfer_callback = callback;
+
+	return SI91X_NO_ERROR;
+}
+
+int sl_si91x_socket_set_recv_timeout(int socket, int32_t timeout)
+{
+	si91x_socket_t *si91x_socket = get_si91x_socket(socket);
+
+	SET_ERRNO_AND_RETURN_IF_TRUE(si91x_socket == NULL, EBADF);
+
+	si91x_socket->read_timeout = timeout;
+
+	return SI91X_NO_ERROR;
 }

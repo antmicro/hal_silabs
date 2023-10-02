@@ -54,7 +54,7 @@ int16_t rsi_mem_rd(uint32_t addr, uint16_t len, uint8_t *dBuf)
 /// @private
 int16_t rsi_bl_select_option(uint8_t cmd)
 {
-  uint16_t boot_cmd   = 0;
+  uint32_t boot_cmd   = 0;
   int16_t retval      = 0;
   uint16_t read_value = 0;
   sl_si91x_timer_t timer_instance;
@@ -69,7 +69,7 @@ int16_t rsi_bl_select_option(uint8_t cmd)
   } else {
     boot_cmd = RSI_HOST_INTERACT_REG_VALID | cmd;
   }
-  retval = sli_si91x_send_boot_instruction(RSI_REG_WRITE, &boot_cmd);
+  retval = sli_si91x_send_boot_instruction(RSI_REG_WRITE, (uint16_t *)&boot_cmd);
   if (retval < 0) {
     return retval;
   }
@@ -158,7 +158,7 @@ int16_t sli_si91x_send_boot_instruction(uint8_t type, uint16_t *data)
   uint32_t j         = 0;
   uint16_t len       = 0;
   uint16_t offset    = 0;
-  uint16_t local     = 0;
+  uint32_t local     = 0;
   uint16_t read_data = 0;
   sl_si91x_timer_t timer_instance;
 
@@ -329,7 +329,7 @@ int16_t rsi_waitfor_boardready(void)
  */
 int16_t rsi_select_option(uint8_t cmd)
 {
-  uint16_t boot_cmd             = 0;
+  uint32_t boot_cmd             = 0;
   int16_t retval                = 0;
   uint16_t read_value           = 0;
   uint8_t image_number          = 0;
@@ -340,7 +340,7 @@ int16_t rsi_select_option(uint8_t cmd)
     boot_cmd &= 0xF0FF;
     boot_cmd |= (image_number << 8);
   }
-  retval = rsi_boot_insn(REG_WRITE, &boot_cmd);
+  retval = rsi_boot_insn(REG_WRITE, (uint16_t *)&boot_cmd);
   if (retval < 0) {
     return retval;
   }
@@ -411,7 +411,7 @@ int16_t rsi_select_option(uint8_t cmd)
 int16_t rsi_boot_insn(uint8_t type, uint16_t *data)
 {
   int16_t retval                = 0;
-  uint16_t local                = 0;
+  uint32_t local                = 0;
   uint32_t j                    = 0;
   uint32_t cmd                  = 0;
   uint16_t read_data            = 0;
