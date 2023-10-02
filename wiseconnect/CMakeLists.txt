@@ -76,3 +76,43 @@ zephyr_sources_ifdef(CONFIG_WIFI_SIWG917
 zephyr_compile_definitions_ifdef(CONFIG_WIFI_SIWG917
   SL_WIFI_COMPONENT_INCLUDED
 )
+
+zephyr_include_directories_ifdef(CONFIG_BT_SIWG917
+  components/siwx917_soc/wifi_inc
+  components/si91x_support/brd4338a
+  components/si91x/inc
+  components/si91x/ble/inc
+  components/protocol/wifi/inc
+  components/service/network_manager/inc
+  ../gecko/common/inc
+  ${ZEPHYR_BASE}/include/zephyr/portability
+)
+
+zephyr_sources_ifdef(CONFIG_BT_SIWG917
+  components/siwx917_soc/sl_si91x_bus.c
+  components/siwx917_soc/sli_siwx917_soc.c
+  components/siwx917_soc/sl_platform_wireless.c
+  components/siwx917_soc/sl_platform.c
+  components/siwx917_soc/rsi_hal_mcu_m4_ram.c
+  components/siwx917_soc/rsi_hal_mcu_m4_rom.c
+  components/si91x_support/src/sl_utility.c
+  components/si91x/ble/src/rsi_ble_gap_apis.c
+  components/si91x/ble/src/rsi_bt_ble.c
+  components/si91x/ble/src/rsi_bt_common_apis.c
+  components/si91x/ble/src/rsi_common_apis.c
+  components/si91x/ble/src/rsi_utils.c
+  components/si91x/src/sl_rsi_utility.c
+  components/si91x/src/sl_si91x_driver.c
+  components/si91x/memory/malloc_buffers.c
+  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  components/si91x/threading/sli_si91x_multithreaded.c
+  components/protocol/wifi/si91x/sl_wifi.c
+  )
+
+zephyr_compile_definitions_ifdef(CONFIG_BT_SIWG917
+  SL_WIFI_COMPONENT_INCLUDED
+  BLE_ENABLE
+  RSI_LITTLE_ENDIAN
+# Only for testing purposes, to be deleted
+  RSI_DEBUG_PRINTS
+)
