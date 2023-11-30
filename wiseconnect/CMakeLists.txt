@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 zephyr_include_directories(
+  components/si91x_support/inc
   components/siwx917_soc/drivers/cmsis_driver
   components/siwx917_soc/drivers/cmsis_driver/CMSIS/Driver/Include
   components/siwx917_soc/drivers/cmsis_driver/config
@@ -10,7 +11,11 @@ zephyr_include_directories(
   components/siwx917_soc/drivers/rom_driver/inc
   components/siwx917_soc/drivers/systemlevel/inc
   components/siwx917_soc/inc
+  components/si91x/inc/
   components/si91x_support/inc
+
+  # TODO: don't hardcode board!!
+  components/si91x_support/brd4338a
 )
 
 zephyr_sources(
@@ -22,6 +27,14 @@ zephyr_sources(
   components/siwx917_soc/drivers/systemlevel/src/rsi_pll.c
   components/siwx917_soc/drivers/systemlevel/src/rsi_power_save.c
   components/siwx917_soc/drivers/systemlevel/src/rsi_ulpss_clk.c
+  components/si91x/memory/malloc_buffers.c
+  components/siwx917_soc/rsi_hal_mcu_m4_rom.c
+  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  components/si91x_support/src/sl_utility.c
+  components/si91x/threading/sli_si91x_multithreaded.c
+  components/si91x/src/sl_rsi_utility.c
+  components/siwx917_soc/sl_platform.c
+  components/siwx917_soc/sl_platform_wireless.c
 )
 
 zephyr_compile_definitions(
@@ -37,43 +50,43 @@ zephyr_compile_definitions(
 )
 
 zephyr_include_directories_ifdef(CONFIG_WIFI_SIWG917
-  components/service/network_manager/inc/
   components/protocol/wifi/inc
-  components/si91x/sl_net/inc
-  components/si91x/inc/
-  components/si91x_support/brd4338a
+  components/siwx917_soc/inc
+
+  components/siwx917_soc/core/config
   components/siwx917_soc/wifi_inc
+  components/service/network_manager/inc
+  components/si91x/sl_net/inc
+  components/si91x/socket_utility/inc
+  ../gecko/platform/common/inc
   ../gecko/common/inc
   ${ZEPHYR_BASE}/include/zephyr/portability
 )
 
 zephyr_sources_ifdef(CONFIG_WIFI_SIWG917
-  components/siwx917_soc/sl_platform.c
-  components/siwx917_soc/sl_platform_wireless.c
   components/siwx917_soc/sl_si91x_bus.c
   components/siwx917_soc/sli_siwx917_soc.c
-  components/siwx917_soc/rsi_hal_mcu_m4_rom.c
   components/siwx917_soc/rsi_hal_mcu_m4_ram.c
-  components/si91x_support/src/sl_utility.c
-  components/si91x/src/sl_rsi_utility.c
+
+  components/protocol/wifi/si91x/sl_wifi.c
+  components/si91x/sl_net/src/sl_net_si91x_integration_handler.c
   components/si91x/src/sl_si91x_driver.c
   components/si91x/src/sl_si91x_callback_framework.c
-  components/si91x/memory/malloc_buffers.c
-  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
-  components/si91x/threading/sli_si91x_multithreaded.c
-  components/si91x/sl_net/protocols/icmp/sl_net_ping.c
-  components/si91x/sl_net/src/sl_net_si91x_integration_handler.c
   components/si91x/sl_net/src/sl_net_rsi_utility.c
-  components/si91x/sl_net/src/sl_net_si91x.c
-  components/si91x/sl_net/src/sl_si91x_net_internal_stack.c
   components/service/network_manager/src/sl_net.c
-  components/service/network_manager/src/sl_net_basic_credentials.c
+  components/si91x/sl_net/src/sl_si91x_net_internal_stack.c
   components/service/network_manager/src/sl_net_basic_profiles.c
   components/protocol/wifi/src/sl_wifi_callback_framework.c
-  components/protocol/wifi/si91x/sl_wifi.c
+  components/si91x/sl_net/src/sl_net_si91x.c
+  components/service/network_manager/src/sl_net_basic_credentials.c
+  components/si91x/socket/sl_si91x_socket.c
+  components/si91x/socket_utility/src/sl_si91x_socket_utility.c
 )
 
 zephyr_compile_definitions_ifdef(CONFIG_WIFI_SIWG917
+  SI91X_NETWORK_OFFLOAD_ENABLED
+  SI91X_SOCKET_FEATURE
+  SL_NET_COMPONENT_INCLUDED
   SL_WIFI_COMPONENT_INCLUDED
 )
 
@@ -91,21 +104,13 @@ zephyr_include_directories_ifdef(CONFIG_BT_SIWG917
 zephyr_sources_ifdef(CONFIG_BT_SIWG917
   components/siwx917_soc/sl_si91x_bus.c
   components/siwx917_soc/sli_siwx917_soc.c
-  components/siwx917_soc/sl_platform_wireless.c
-  components/siwx917_soc/sl_platform.c
   components/siwx917_soc/rsi_hal_mcu_m4_ram.c
-  components/siwx917_soc/rsi_hal_mcu_m4_rom.c
-  components/si91x_support/src/sl_utility.c
   components/si91x/ble/src/rsi_ble_gap_apis.c
   components/si91x/ble/src/rsi_bt_ble.c
   components/si91x/ble/src/rsi_bt_common_apis.c
   components/si91x/ble/src/rsi_common_apis.c
   components/si91x/ble/src/rsi_utils.c
-  components/si91x/src/sl_rsi_utility.c
   components/si91x/src/sl_si91x_driver.c
-  components/si91x/memory/malloc_buffers.c
-  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
-  components/si91x/threading/sli_si91x_multithreaded.c
   components/protocol/wifi/si91x/sl_wifi.c
   )
 
