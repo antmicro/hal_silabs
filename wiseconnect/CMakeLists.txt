@@ -49,6 +49,7 @@ zephyr_sources(
   components/siwx917_soc/drivers/peripheral_drivers/src/clock_update.c
   components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
   components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma.c
+  components/si91x/src/sl_si91x_peripheral_i2c.c
   components/siwx917_soc/sl_platform.c
   components/siwx917_soc/sl_platform_wireless.c
 )
