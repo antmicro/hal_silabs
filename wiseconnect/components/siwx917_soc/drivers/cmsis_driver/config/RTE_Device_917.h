@@ -2176,7 +2176,7 @@
 //   <o>  <0=>P0_15 <1=>P0_30 <2=>P0_51 <3=>P0_55
 //   <i> CS2 of GSPI0
 //   </e>
-#define RTE_GSPI_MASTER_CS2_PORT_ID 1
+#define RTE_GSPI_MASTER_CS2_PORT_ID 0
 #if (RTE_GSPI_MASTER_CS2_PORT_ID == 0)
 #define RTE_GSPI_MASTER_CS2      1
 #define RTE_GSPI_MASTER_CS2_PORT 0

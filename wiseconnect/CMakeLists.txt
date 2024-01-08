@@ -20,6 +20,8 @@ zephyr_include_directories(
   components/protocol/wifi/inc
   components/service/network_manager/inc
   components/siwx917_soc/wifi_inc
+  components/siwx917_soc/drivers/unified_api/inc
+  components/siwx917_soc/drivers/unified_api/config
 
   # TODO: don't hardcode board!!
   components/si91x_support/brd4338a
@@ -30,6 +32,7 @@ zephyr_sources(
   components/siwx917_soc/drivers/ipmu/ipmu_apis.c
   components/siwx917_soc/drivers/ipmu/rsi_system_config_9117.c
   components/siwx917_soc/drivers/peripheral_drivers/src/rsi_egpio.c
+  components/siwx917_soc/drivers/peripheral_drivers/src/rsi_gspi.c
   components/siwx917_soc/drivers/systemlevel/src/rsi_ipmu.c
   components/siwx917_soc/drivers/systemlevel/src/rsi_pll.c
   components/siwx917_soc/drivers/systemlevel/src/rsi_power_save.c
@@ -40,6 +43,12 @@ zephyr_sources(
   components/si91x_support/src/sl_utility.c
   #components/si91x/threading/sli_si91x_multithreaded.c
   components/si91x/src/sl_rsi_utility.c
+  components/siwx917_soc/drivers/unified_api/src/sl_si91x_gspi.c
+  components/siwx917_soc/drivers/cmsis_driver/GSPI.c
+  components/siwx917_soc/drivers/cmsis_driver/UDMA.c
+  components/siwx917_soc/drivers/peripheral_drivers/src/clock_update.c
+  components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
+  components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma.c
   components/siwx917_soc/sl_platform.c
   components/siwx917_soc/sl_platform_wireless.c
 )
@@ -52,6 +61,9 @@ zephyr_compile_definitions(
   ENABLE_IPMU_APIS
   RSI_M4_INTERFACE
   SI917
+  SLI_SI917
+  ROM_BYPASS
+  GSPI_MULTI_SLAVE
   # this is needed to prevent error_t duplication
   __error_t_defined
 )
