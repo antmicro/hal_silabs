@@ -13,6 +13,13 @@ zephyr_include_directories(
   components/siwx917_soc/inc
   components/si91x/inc/
   components/si91x_support/inc
+  ../gecko/common/inc
+
+  # TODO: files from those dirs should be included only if WiFi is enabled,
+  # but HAL code includes them uncoditionally
+  components/protocol/wifi/inc
+  components/service/network_manager/inc
+  components/siwx917_soc/wifi_inc
 
   # TODO: don't hardcode board!!
   components/si91x_support/brd4338a
@@ -29,9 +36,9 @@ zephyr_sources(
   components/siwx917_soc/drivers/systemlevel/src/rsi_ulpss_clk.c
   components/si91x/memory/malloc_buffers.c
   components/siwx917_soc/rsi_hal_mcu_m4_rom.c
-  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  #components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
   components/si91x_support/src/sl_utility.c
-  components/si91x/threading/sli_si91x_multithreaded.c
+  #components/si91x/threading/sli_si91x_multithreaded.c
   components/si91x/src/sl_rsi_utility.c
   components/siwx917_soc/sl_platform.c
   components/siwx917_soc/sl_platform_wireless.c
@@ -50,16 +57,12 @@ zephyr_compile_definitions(
 )
 
 zephyr_include_directories_ifdef(CONFIG_WIFI_SIWG917
-  components/protocol/wifi/inc
   components/siwx917_soc/inc
 
   components/siwx917_soc/core/config
-  components/siwx917_soc/wifi_inc
-  components/service/network_manager/inc
   components/si91x/sl_net/inc
   components/si91x/socket_utility/inc
   ../gecko/platform/common/inc
-  ../gecko/common/inc
   ${ZEPHYR_BASE}/include/zephyr/portability
 )
 
