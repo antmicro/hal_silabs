@@ -39,9 +39,7 @@ zephyr_sources(
   components/siwx917_soc/drivers/systemlevel/src/rsi_ulpss_clk.c
   components/si91x/memory/malloc_buffers.c
   components/siwx917_soc/rsi_hal_mcu_m4_rom.c
-  #components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
   components/si91x_support/src/sl_utility.c
-  #components/si91x/threading/sli_si91x_multithreaded.c
   components/si91x/src/sl_rsi_utility.c
   components/siwx917_soc/drivers/unified_api/src/sl_si91x_gspi.c
   components/siwx917_soc/drivers/cmsis_driver/GSPI.c
@@ -49,6 +47,7 @@ zephyr_sources(
   components/siwx917_soc/drivers/peripheral_drivers/src/clock_update.c
   components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma_wrapper.c
   components/siwx917_soc/drivers/peripheral_drivers/src/rsi_udma.c
+  components/siwx917_soc/drivers/peripheral_drivers/src/rsi_rng.c
   components/si91x/src/sl_si91x_peripheral_i2c.c
   components/siwx917_soc/sl_platform.c
   components/siwx917_soc/sl_platform_wireless.c
@@ -97,6 +96,8 @@ zephyr_sources_ifdef(CONFIG_WIFI_SIWG917
   components/service/network_manager/src/sl_net_basic_credentials.c
   components/si91x/socket/sl_si91x_socket.c
   components/si91x/socket_utility/src/sl_si91x_socket_utility.c
+  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  components/si91x/threading/sli_si91x_multithreaded.c
 )
 
 zephyr_compile_definitions_ifdef(CONFIG_WIFI_SIWG917
@@ -128,6 +129,8 @@ zephyr_sources_ifdef(CONFIG_BT_SIWG917
   components/si91x/ble/src/rsi_utils.c
   components/si91x/src/sl_si91x_driver.c
   components/protocol/wifi/si91x/sl_wifi.c
+  components/si91x/platforms/siwx917_soc/siwx917_soc_ncp_host.c
+  components/si91x/threading/sli_si91x_multithreaded.c
   )
 
 zephyr_compile_definitions_ifdef(CONFIG_BT_SIWG917
